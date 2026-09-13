@@ -1,0 +1,1453 @@
+```html
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>💗 Battle of Boyfriends</title>
+
+<style>
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: "Segoe UI", Arial, sans-serif;
+    color: #55465c;
+    min-height: 100vh;
+    background:
+        radial-gradient(circle at 10% 10%, #ffdcec, transparent 25%),
+        radial-gradient(circle at 90% 10%, #e7dcff, transparent 25%),
+        linear-gradient(135deg, #fffaff, #f7f0ff);
+}
+
+.container {
+    width: min(1100px, 92%);
+    margin: auto;
+}
+
+header {
+    text-align: center;
+    padding: 45px 15px 25px;
+}
+
+.room {
+    display: inline-block;
+    padding: 8px 20px;
+    border-radius: 50px;
+    background: rgba(255,255,255,.85);
+    border: 1px solid #edd8e9;
+    color: #a46f98;
+    font-size: 13px;
+    font-weight: bold;
+    margin-bottom: 18px;
+}
+
+h1 {
+    font-size: clamp(2.3rem, 6vw, 4.5rem);
+    font-weight: 900;
+    letter-spacing: -2px;
+    background: linear-gradient(90deg,#e886b4,#9a7bd0,#d2a84d);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+}
+
+.subtitle {
+    margin-top: 12px;
+    color: #88768d;
+    font-size: 1.1rem;
+}
+
+.week-box,
+.champion,
+.chart-box,
+.selector,
+.stat,
+.action,
+.history-item,
+.final {
+    background: rgba(255,255,255,.9);
+    border: 1px solid #eadce9;
+    box-shadow: 0 10px 30px rgba(100,70,110,.08);
+}
+
+.week-box {
+    margin: 25px auto 35px;
+    padding: 25px;
+    max-width: 900px;
+    text-align: center;
+    border-radius: 28px;
+}
+
+.week-title {
+    color: #a77c38;
+    font-size: 13px;
+    font-weight: 900;
+    letter-spacing: 2px;
+}
+
+.week-dates {
+    color: #8e7c91;
+    margin: 8px 0 15px;
+}
+
+.countdown {
+    font-size: clamp(1.8rem, 5vw, 3rem);
+    font-weight: 900;
+    color: #8665a7;
+}
+
+.progress-week {
+    height: 9px;
+    background: #eee5f1;
+    border-radius: 20px;
+    overflow: hidden;
+    margin-top: 17px;
+}
+
+.progress-week-bar {
+    height: 100%;
+    width: 0%;
+    background: linear-gradient(90deg,#ec9fc3,#a886d6,#d5b45d);
+    transition: width 1s linear;
+}
+
+.champion {
+    text-align: center;
+    margin-bottom: 35px;
+    padding: 35px 20px;
+    border-radius: 30px;
+    background: linear-gradient(135deg,#fff,#fff7df);
+    border-color: #eadbb8;
+}
+
+.champion-label {
+    color: #b18a3e;
+    font-size: 13px;
+    font-weight: 900;
+    letter-spacing: 2px;
+}
+
+.champion-name {
+    margin-top: 10px;
+    font-size: clamp(2.5rem,7vw,4rem);
+    color: #765b78;
+    font-weight: 900;
+    letter-spacing: 3px;
+}
+
+.champion-points {
+    color: #aa8740;
+    font-weight: bold;
+    margin-top: 7px;
+}
+
+.stats {
+    display: grid;
+    grid-template-columns: repeat(4,1fr);
+    gap: 15px;
+    margin-bottom: 35px;
+}
+
+.stat {
+    border-radius: 20px;
+    padding: 20px;
+    text-align: center;
+}
+
+.stat-icon {
+    font-size: 1.7rem;
+}
+
+.stat-number {
+    font-size: 1.35rem;
+    font-weight: 900;
+    color: #80639a;
+    margin-top: 5px;
+}
+
+.stat-label {
+    color: #9b8b9f;
+    font-size: .8rem;
+    margin-top: 3px;
+}
+
+.chart-box {
+    border-radius: 28px;
+    padding: 30px;
+    margin-bottom: 35px;
+}
+
+.section-title {
+    text-align: center;
+    color: #6d5872;
+    margin-bottom: 25px;
+    font-size: 1.6rem;
+}
+
+.chart {
+    height: 330px;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    gap: clamp(20px,7vw,90px);
+    padding: 20px 10px 0;
+}
+
+.bar-container {
+    width: 25%;
+    max-width: 130px;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.bar-value {
+    font-weight: 900;
+    color: #765b83;
+    margin-bottom: 7px;
+}
+
+.bar {
+    width: 100%;
+    min-height: 8px;
+    border-radius: 18px 18px 5px 5px;
+    background: linear-gradient(to top,#e894bc,#b190d7);
+    transition: height .8s;
+}
+
+.bar-name {
+    margin-top: 10px;
+    font-weight: 900;
+    color: #69536e;
+}
+
+.bar-girl {
+    font-size: .75rem;
+    color: #a28fa6;
+}
+
+.selector {
+    max-width: 650px;
+    margin: 0 auto 25px;
+    padding: 20px;
+    border-radius: 22px;
+    text-align: center;
+}
+
+.selector label {
+    display: block;
+    font-weight: 800;
+    margin-bottom: 10px;
+}
+
+select {
+    width: 100%;
+    padding: 14px;
+    border-radius: 14px;
+    border: 2px solid #eadcea;
+    background: white;
+    color: #66536b;
+    font-size: 1rem;
+    outline: none;
+}
+
+.actions {
+    display: grid;
+    grid-template-columns: repeat(3,1fr);
+    gap: 15px;
+    margin-bottom: 40px;
+}
+
+.action {
+    padding: 18px;
+    border-radius: 20px;
+    color: #66536b;
+    cursor: pointer;
+    text-align: left;
+    transition: .25s;
+}
+
+.action:hover {
+    transform: translateY(-4px);
+    border-color: #d9b7d5;
+}
+
+.action-icon {
+    font-size: 1.7rem;
+}
+
+.action-name {
+    display: block;
+    font-weight: 800;
+    margin-top: 6px;
+}
+
+.action-points {
+    display: block;
+    color: #b08a43;
+    font-weight: 900;
+    margin-top: 3px;
+}
+
+.history {
+    margin-bottom: 40px;
+}
+
+.history-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.history-item {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 18px;
+    border-radius: 18px;
+}
+
+.history-icon {
+    font-size: 1.8rem;
+}
+
+.history-info {
+    flex: 1;
+}
+
+.history-name {
+    font-weight: 900;
+    color: #67516c;
+}
+
+.history-description {
+    color: #88778c;
+    margin-top: 3px;
+}
+
+.history-date {
+    color: #aaa0ad;
+    font-size: .78rem;
+    margin-top: 4px;
+}
+
+.history-points {
+    color: #b1883f;
+    font-weight: 900;
+}
+
+.final {
+    display: none;
+    text-align: center;
+    padding: 40px 20px;
+    margin-bottom: 40px;
+    border-radius: 30px;
+    background: linear-gradient(135deg,#fff,#fff3cf);
+    border-color: #e7ce82;
+}
+
+.final.show {
+    display: block;
+}
+
+.final h2 {
+    color: #b18735;
+    margin-bottom: 12px;
+}
+
+.final-winner {
+    font-size: clamp(2rem,7vw,3.3rem);
+    font-weight: 900;
+    color: #795b7b;
+    margin-top: 10px;
+}
+
+.controls {
+    text-align: center;
+    margin: 30px 0 50px;
+}
+
+.reset {
+    padding: 12px 22px;
+    border-radius: 50px;
+    border: 1px solid #e9ced8;
+    background: white;
+    color: #ad6e83;
+    cursor: pointer;
+    font-weight: 700;
+}
+
+.notification {
+    position: fixed;
+    right: 20px;
+    bottom: 20px;
+    z-index: 9999;
+    padding: 17px 22px;
+    border-radius: 17px;
+    background: white;
+    border: 1px solid #ead8e7;
+    box-shadow: 0 15px 40px rgba(70,50,80,.17);
+    font-weight: 800;
+    color: #634d68;
+    transform: translateY(120px);
+    opacity: 0;
+    transition: .35s;
+}
+
+.notification.show {
+    transform: translateY(0);
+    opacity: 1;
+}
+
+
+/* TARJETAS DE ACCIONES NEGATIVAS */
+.action.negative {
+    background: linear-gradient(135deg,#fff7fa,#fff0f4);
+    border-color: #efc9d5;
+}
+.action.negative .action-points { color:#c15d78; }
+.action.negative:hover { border-color:#df9caf; }
+.section-subtitle {
+    text-align:center;
+    color:#9b8b9f;
+    margin:-15px 0 22px;
+    font-size:.9rem;
+}
+.week-winners-box {
+    background:rgba(255,255,255,.92);
+    border:1px solid #eadce9;
+    box-shadow:0 10px 30px rgba(100,70,110,.08);
+    border-radius:28px;
+    padding:28px;
+    margin-bottom:35px;
+}
+.winners-list { display:flex; flex-direction:column; gap:12px; }
+.winner-week {
+    display:grid;
+    grid-template-columns:70px 1fr auto;
+    align-items:center;
+    gap:15px;
+    padding:16px;
+    border-radius:18px;
+    background:linear-gradient(135deg,#fffaff,#fffdf4);
+    border:1px solid #eee1ea;
+}
+.winner-medal { font-size:2rem; text-align:center; }
+.winner-info strong { display:block; color:#67516c; font-size:1.05rem; }
+.winner-info span { color:#9a8a9f; font-size:.82rem; }
+.winner-points { font-weight:900; color:#ad8740; }
+@media(max-width:600px){
+    .winner-week{grid-template-columns:50px 1fr;}
+    .winner-points{grid-column:2;}
+}
+
+@media(max-width:850px) {
+    .stats {
+        grid-template-columns: repeat(2,1fr);
+    }
+
+    .actions {
+        grid-template-columns: repeat(2,1fr);
+    }
+}
+
+@media(max-width:600px) {
+    .actions {
+        grid-template-columns: 1fr;
+    }
+
+    .chart {
+        gap: 15px;
+    }
+
+    .bar-container {
+        width: 28%;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+    <div class="container">
+        <div class="room">💗 HABITACIÓN 312 💗</div>
+        <h1>💗 BATTLE OF BOYFRIENDS 💗</h1>
+        <p class="subtitle">Tres novios. Tres chicas. Un solo campeón.</p>
+    </div>
+</header>
+
+<main class="container">
+
+<section class="week-box">
+    <div class="week-title">🏆 COMPETENCIA SEMANAL</div>
+    <div class="week-dates" id="weekDates">Cargando...</div>
+    <div class="countdown" id="countdown">00d 00h 00m 00s</div>
+
+    <div class="progress-week">
+        <div class="progress-week-bar" id="weekProgress"></div>
+    </div>
+</section>
+
+<section class="champion">
+    <div class="champion-label">👑 NOVIO DE LA SEMANA 👑</div>
+    <div class="champion-name" id="championName">❓❓❓</div>
+    <div class="champion-points" id="championPoints">
+        El ganador se revelará al finalizar la semana
+    </div>
+</section>
+
+<section class="stats">
+
+    <div class="stat">
+        <div class="stat-icon">💗</div>
+        <div class="stat-number" id="totalPoints">0</div>
+        <div class="stat-label">Puntos totales</div>
+    </div>
+
+    <div class="stat">
+        <div class="stat-icon">🏆</div>
+        <div class="stat-number" id="leader">❓</div>
+        <div class="stat-label">Líder oculto</div>
+    </div>
+
+    <div class="stat">
+        <div class="stat-icon">💌</div>
+        <div class="stat-number" id="actionsCount">0</div>
+        <div class="stat-label">Detalles registrados</div>
+    </div>
+
+    <div class="stat">
+        <div class="stat-icon">🔥</div>
+        <div class="stat-number" id="bestAction">-</div>
+        <div class="stat-label">Mayor acción</div>
+    </div>
+
+</section>
+
+<section class="chart-box">
+    <h2 class="section-title">📊 Batalla de puntos</h2>
+    <div class="chart" id="chart"></div>
+</section>
+
+<section>
+    <div class="selector">
+        <label for="boyfriend">💕 ¿Qué novio realizó la acción?</label>
+
+        <select id="boyfriend">
+            <option value="" selected disabled>💭 Selecciona un novio...</option>
+            <option value="ian">IAN — novio de Sofía</option>
+            <option value="fabrizcio">FABRIZCIO — novio de Yakelin</option>
+            <option value="benjamin">BENJAMIN — novio de Yuri</option>
+        </select>
+    </div>
+</section>
+
+<section>
+    <h2 class="section-title">💌 Registrar una acción bonita</h2>
+
+    <div class="actions">
+
+        <button class="action" onclick="addPoints(10,'🌹','Tuvo un detalle bonito')">
+            <span class="action-icon">🌹</span>
+            <span class="action-name">Tuvo un detalle bonito</span>
+            <span class="action-points">+10 puntos</span>
+        </button>
+
+        <button class="action" onclick="addPoints(5,'💌','Escribió un mensaje lindo')">
+            <span class="action-icon">💌</span>
+            <span class="action-name">Escribió un mensaje lindo</span>
+            <span class="action-points">+5 puntos</span>
+        </button>
+
+        <button class="action" onclick="addPoints(5,'🫶','Estuvo pendiente de ella')">
+            <span class="action-icon">🫶</span>
+            <span class="action-name">Estuvo pendiente de ella</span>
+            <span class="action-points">+5 puntos</span>
+        </button>
+
+        <button class="action" onclick="addPoints(8,'🍫','Dio un dulce o chocolate')">
+            <span class="action-icon">🍫</span>
+            <span class="action-name">Dio un dulce o chocolate</span>
+            <span class="action-points">+8 puntos</span>
+        </button>
+
+        <button class="action" onclick="addPoints(15,'🌷','Dio flores')">
+            <span class="action-icon">🌷</span>
+            <span class="action-name">Dio flores</span>
+            <span class="action-points">+15 puntos</span>
+        </button>
+
+        <button class="action" onclick="addPoints(20,'🎁','Preparó una sorpresa')">
+            <span class="action-icon">🎁</span>
+            <span class="action-name">Preparó una sorpresa</span>
+            <span class="action-points">+20 puntos</span>
+        </button>
+
+        <button class="action" onclick="addPoints(15,'🤍','La apoyó cuando lo necesitaba')">
+            <span class="action-icon">🤍</span>
+            <span class="action-name">La apoyó cuando lo necesitaba</span>
+            <span class="action-points">+15 puntos</span>
+        </button>
+
+        <button class="action" onclick="addPoints(30,'✨','Hizo algo especialmente romántico')">
+            <span class="action-icon">✨</span>
+            <span class="action-name">Hizo algo especialmente romántico</span>
+            <span class="action-points">+30 puntos</span>
+        </button>
+
+        <button class="action" onclick="addPoints(50,'👑','Acción legendaria')">
+            <span class="action-icon">👑</span>
+            <span class="action-name">Acción legendaria</span>
+            <span class="action-points">+50 puntos</span>
+        </button>
+
+    </div>
+</section>
+
+<section>
+    <h2 class="section-title">⚠️ Registrar una acción que resta puntos</h2>
+    <p class="section-subtitle">Acciones que no favorecen a la relación también cuentan 💔</p>
+    <div class="actions">
+
+        <button class="action negative" onclick="addPoints(-5,'😶','Ignoró o dejó de responder sin motivo')">
+            <span class="action-icon">😶</span>
+            <span class="action-name">Ignoró sin motivo</span>
+            <span class="action-points">−5 puntos</span>
+        </button>
+
+        <button class="action negative" onclick="addPoints(-5,'⏰','Llegó tarde a un compromiso importante')">
+            <span class="action-icon">⏰</span>
+            <span class="action-name">Llegó tarde a un compromiso</span>
+            <span class="action-points">−5 puntos</span>
+        </button>
+
+        <button class="action negative" onclick="addPoints(-8,'💬','Respondió de manera grosera o hiriente')">
+            <span class="action-icon">💬</span>
+            <span class="action-name">Fue grosero o hiriente</span>
+            <span class="action-points">−8 puntos</span>
+        </button>
+
+        <button class="action negative" onclick="addPoints(-10,'🙄','No cumplió una promesa o compromiso')">
+            <span class="action-icon">🙄</span>
+            <span class="action-name">No cumplió un compromiso</span>
+            <span class="action-points">−10 puntos</span>
+        </button>
+
+        <button class="action negative" onclick="addPoints(-10,'💢','Tuvo una actitud poco considerada')">
+            <span class="action-icon">💢</span>
+            <span class="action-name">Fue poco considerado</span>
+            <span class="action-points">−10 puntos</span>
+        </button>
+
+        <button class="action negative" onclick="addPoints(-15,'🚩','Hizo algo que afectó la confianza')">
+            <span class="action-icon">🚩</span>
+            <span class="action-name">Afectó la confianza</span>
+            <span class="action-points">−15 puntos</span>
+        </button>
+
+        <button class="action negative" onclick="addPoints(-20,'💔','Tuvo una acción especialmente dañina para la relación')">
+            <span class="action-icon">💔</span>
+            <span class="action-name">Acción especialmente dañina</span>
+            <span class="action-points">−20 puntos</span>
+        </button>
+
+    </div>
+</section>
+
+<section class="week-winners-box">
+    <h2 class="section-title">🏆 Ganadores por semana</h2>
+    <div class="winners-list" id="weeklyWinnersList">
+        <div class="history-item">
+            <div class="history-icon">🏆</div>
+            <div class="history-info">
+                <div class="history-description">Todavía no hay semanas finalizadas.</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="final" id="finalSection">
+    <h2>🎉 ¡COMPETENCIA FINALIZADA! 🎉</h2>
+    <p>Después de una semana de detalles...</p>
+    <p>El ganador es:</p>
+    <div class="final-winner" id="finalWinner">👑 ❓ 👑</div>
+</section>
+
+<section class="history">
+    <h2 class="section-title">📜 Últimos detalles</h2>
+    <div class="history-list" id="historyList"></div>
+</section>
+
+<div class="controls">
+    <button class="reset" onclick="resetCompetition()">
+        🗑️ Reiniciar competencia
+    </button>
+</div>
+
+</main>
+
+<div class="notification" id="notification"></div>
+
+
+<!-- ======================================================
+     FIREBASE
+====================================================== -->
+
+<script type="module">
+
+import { initializeApp }
+from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+
+import {
+    getDatabase,
+    ref,
+    get,
+    set,
+    push,
+    onValue,
+    remove
+}
+from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
+
+
+/* CONFIGURACIÓN DE TU FIREBASE */
+
+const firebaseConfig = {
+    apiKey: "AIzaSyAEJTLAOhE28I7-fq_-MAiWtb0cJ_zZYwE",
+    authDomain: "battle-of-boyfriends-25703.firebaseapp.com",
+    databaseURL: "https://battle-of-boyfriends-25703-default-rtdb.firebaseio.com",
+    projectId: "battle-of-boyfriends-25703",
+    storageBucket: "battle-of-boyfriends-25703.firebasestorage.app",
+    messagingSenderId: "824877838393",
+    appId: "1:824877838393:web:2e6d972be3e0020c31dde8"
+};
+
+
+/* INICIAR FIREBASE */
+
+const app = initializeApp(firebaseConfig);
+const db = getDatabase(app);
+
+
+/* PARTICIPANTES */
+
+const participants = {
+
+    ian: {
+        name: "IAN",
+        girlfriend: "Sofía",
+        points: 0
+    },
+
+    fabrizcio: {
+        name: "FABRIZCIO",
+        girlfriend: "Yakelin",
+        points: 0
+    },
+
+    benjamin: {
+        name: "BENJAMIN",
+        girlfriend: "Yuri",
+        points: 0
+    }
+
+};
+
+
+let historyData = [];
+let weeklyData = {};
+let currentWeekKey = "";
+
+
+/* ============================================
+   CARGAR DATOS DESDE FIREBASE
+============================================ */
+
+function loadFirebase() {
+
+    const pointsRef = ref(db,"battle/participants");
+    const historyRef = ref(db,"battle/history");
+    const weeksRef = ref(db,"battle/weeks");
+
+    onValue(pointsRef,(snapshot) => {
+        const data = snapshot.val();
+        if(data) {
+            Object.keys(participants).forEach(id => {
+                if(data[id]) participants[id].points = Number(data[id].points) || 0;
+            });
+        }
+        renderAll();
+    });
+
+    onValue(historyRef,(snapshot) => {
+        const data = snapshot.val();
+        historyData = data ? Object.values(data).reverse() : [];
+        renderAll();
+    });
+
+    onValue(weeksRef,(snapshot) => {
+        weeklyData = snapshot.val() || {};
+        currentWeekKey = getWeekKey(new Date());
+        renderAll();
+        finalizePastWeeks();
+    });
+}
+
+/* ============================================
+   GUARDAR PARTICIPANTES
+============================================ */
+
+async function saveParticipants() {
+
+    await set(
+        ref(db,"battle/participants"),
+        participants
+    );
+
+}
+
+
+/* ============================================
+   AGREGAR PUNTOS
+============================================ */
+
+window.addPoints = async function(points,icon,description) {
+
+    const boyfriend = document.getElementById("boyfriend").value;
+
+    if(!boyfriend) {
+        showNotification("💭 Primero elige a quién registrar.");
+        return;
+    }
+
+    const player = participants[boyfriend];
+    const now = new Date();
+    const weekKey = getWeekKey(now);
+    currentWeekKey = weekKey;
+
+    // El marcador general nunca baja de cero.
+    player.points = Math.max(0, player.points + points);
+
+    const action = {
+        name: player.name,
+        girlfriend: player.girlfriend,
+        playerId: boyfriend,
+        icon: icon,
+        description: description,
+        points: points,
+        timestamp: now.getTime(),
+        date: now.toLocaleDateString("es-PE"),
+        time: now.toLocaleTimeString("es-PE",{hour:"2-digit",minute:"2-digit"})
+    };
+
+    const currentWeek = weeklyData[weekKey] || {
+        start: getWeekStart(now).toISOString(),
+        end: getWeekEnd(now).toISOString(),
+        scores: { ian:0, fabrizcio:0, benjamin:0 },
+        winner: null
+    };
+
+    currentWeek.scores[boyfriend] =
+        Math.max(0, Number(currentWeek.scores[boyfriend] || 0) + points);
+    currentWeek.updatedAt = now.getTime();
+
+    try {
+        await saveParticipants();
+        await push(ref(db,"battle/history"),action);
+        await set(ref(db,`battle/weeks/${weekKey}`),currentWeek);
+
+        weeklyData[weekKey] = currentWeek;
+
+        const sign = points >= 0 ? "+" : "";
+        showNotification(`💕 ${player.name} ${sign}${points} puntos`);
+        if(points > 0) createHearts();
+        renderAll();
+    } catch(error) {
+        console.error(error);
+        showNotification("❌ No se pudo guardar. Revisa Firebase.");
+    }
+};
+
+/* ============================================
+   RANKING
+============================================ */
+
+function getRanking() {
+
+    return Object.entries(participants)
+        .sort(
+            (a,b) =>
+                b[1].points -
+                a[1].points
+        );
+
+}
+
+
+/* ============================================
+   GRÁFICO
+============================================ */
+
+function renderChart() {
+
+    const chart =
+        document.getElementById("chart");
+
+    chart.innerHTML = "";
+
+    const ranking = getRanking();
+
+    const max = Math.max(
+        ...ranking.map(
+            item => item[1].points
+        ),
+        1
+    );
+
+
+    ranking.forEach(
+        ([id,player],index) => {
+
+            const container =
+                document.createElement("div");
+
+            container.className =
+                "bar-container";
+
+            const percentage =
+                player.points === 0
+                ? 3
+                : Math.max(
+                    player.points / max * 100,
+                    5
+                );
+
+
+            container.innerHTML = `
+
+                <div class="bar-value">
+                    ${player.points}
+                </div>
+
+                <div
+                    class="bar"
+                    style="height:${percentage}%">
+                </div>
+
+                <div class="bar-name">
+                    ${
+                        index === 0 ? "🥇" :
+                        index === 1 ? "🥈" : "🥉"
+                    }
+                    ${player.name}
+                </div>
+
+                <div class="bar-girl">
+                    ${player.girlfriend}
+                </div>
+            `;
+
+            chart.appendChild(container);
+
+        }
+    );
+
+}
+
+
+/* ============================================
+   CAMPEÓN
+============================================ */
+
+function renderChampion() {
+
+    const ranking = getRanking();
+
+    const total =
+        Object.values(participants)
+        .reduce(
+            (sum,p) => sum + p.points,
+            0
+        );
+
+
+    document.getElementById("totalPoints")
+        .textContent = total;
+
+    document.getElementById("actionsCount")
+        .textContent = historyData.length;
+
+
+    if(historyData.length > 0) {
+
+        const best =
+            Math.max(
+                ...historyData.map(
+                    item => Number(item.points) || 0
+                )
+            );
+
+        document.getElementById("bestAction")
+            .textContent = `+${best}`;
+
+    } else {
+
+        document.getElementById("bestAction")
+            .textContent = "-";
+
+    }
+
+
+    if(ranking.length > 0 && ranking[0][1].points > 0) {
+
+        document.getElementById("championName")
+            .textContent = "❓❓❓";
+
+        document.getElementById("championPoints")
+            .textContent =
+            "El ganador se revelará al finalizar la semana";
+
+        document.getElementById("leader")
+            .textContent = "❓";
+
+    }
+
+}
+
+
+/* ============================================
+   HISTORIAL
+============================================ */
+
+function renderHistory() {
+
+    const list =
+        document.getElementById("historyList");
+
+    list.innerHTML = "";
+
+
+    if(historyData.length === 0) {
+
+        list.innerHTML = `
+
+            <div class="history-item">
+
+                <div class="history-icon">💌</div>
+
+                <div class="history-info">
+
+                    <div class="history-description">
+                        Todavía no hay detalles registrados.
+                        ¡Sé el primero en sumar puntos!
+                    </div>
+
+                </div>
+
+            </div>
+        `;
+
+        return;
+    }
+
+
+    historyData.slice(0,30).forEach(item => {
+
+        const element =
+            document.createElement("div");
+
+        element.className =
+            "history-item";
+
+
+        element.innerHTML = `
+
+            <div class="history-icon">
+                ${item.icon || "💗"}
+            </div>
+
+            <div class="history-info">
+
+                <div class="history-name">
+                    ${item.name || ""}
+                </div>
+
+                <div class="history-description">
+                    ${item.description || ""}
+                    a ${item.girlfriend || ""}
+                </div>
+
+                <div class="history-date">
+                    ${item.date || ""}
+                    ·
+                    ${item.time || ""}
+                </div>
+
+            </div>
+
+            <div class="history-points" style="color:${Number(item.points) < 0 ? '#c15d78' : '#b1883f'}">
+                ${Number(item.points) > 0 ? '+' : ''}${item.points || 0} puntos
+            </div>
+
+        `;
+
+        list.appendChild(element);
+
+    });
+
+}
+
+
+/* ============================================
+   SEMANAS Y GANADORES
+============================================ */
+
+function getWeekStart(date = new Date()) {
+    const d = new Date(date);
+    const day = d.getDay();
+    const diff = day === 0 ? -6 : 1 - day;
+    d.setHours(0,0,0,0);
+    d.setDate(d.getDate() + diff);
+    return d;
+}
+
+function getWeekEnd(date = new Date()) {
+    const d = getWeekStart(date);
+    d.setDate(d.getDate() + 6);
+    d.setHours(23,59,59,999);
+    return d;
+}
+
+function getWeekKey(date = new Date()) {
+    return getWeekStart(date).toISOString().slice(0,10);
+}
+
+function weekLabel(week) {
+    const start = new Date(week.start);
+    const end = new Date(week.end);
+    return `${start.toLocaleDateString("es-PE")} – ${end.toLocaleDateString("es-PE")}`;
+}
+
+function getWeekWinner(week) {
+    if(!week || !week.scores) return null;
+
+    const entries = Object.entries(week.scores)
+        .map(([id,score]) => [id,Number(score)||0])
+        .sort((a,b) => b[1]-a[1]);
+
+    if(!entries.length || entries[0][1] <= 0) return null;
+
+    const topScore = entries[0][1];
+    const tied = entries.filter(([,score]) => score === topScore);
+
+    if(tied.length > 1) {
+        return {
+            tie:true,
+            names:tied.map(([id]) => participants[id]?.name || id),
+            points:topScore
+        };
+    }
+
+    return {
+        tie:false,
+        id:entries[0][0],
+        name:participants[entries[0][0]]?.name || entries[0][0],
+        girlfriend:participants[entries[0][0]]?.girlfriend || "",
+        points:topScore
+    };
+}
+
+async function finalizePastWeeks() {
+    const now = new Date();
+    const currentKey = getWeekKey(now);
+    currentWeekKey = currentKey;
+
+    for(const [key,week] of Object.entries(weeklyData || {})) {
+        if(key >= currentKey || week.winner) continue;
+
+        const winner = getWeekWinner(week);
+        if(winner) {
+            try {
+                await set(ref(db,`battle/weeks/${key}/winner`),winner);
+                weeklyData[key].winner = winner;
+            } catch(error) {
+                console.error("No se pudo guardar el ganador:",error);
+            }
+        }
+    }
+    renderWeeklyWinners();
+}
+
+function renderWeeklyWinners() {
+    const list = document.getElementById("weeklyWinnersList");
+    if(!list) return;
+
+    const finishedWeeks = Object.entries(weeklyData || {})
+        .filter(([key,week]) => key < currentWeekKey && week.winner)
+        .sort((a,b) => b[0].localeCompare(a[0]));
+
+    list.innerHTML = "";
+
+    if(finishedWeeks.length === 0) {
+        list.innerHTML = `
+            <div class="history-item">
+                <div class="history-icon">🏆</div>
+                <div class="history-info">
+                    <div class="history-description">Todavía no hay semanas finalizadas.</div>
+                </div>
+            </div>`;
+        return;
+    }
+
+    finishedWeeks.forEach(([key,week],index) => {
+        const winner = week.winner;
+        const element = document.createElement("div");
+        element.className = "winner-week";
+
+        if(winner.tie) {
+            element.innerHTML = `
+                <div class="winner-medal">🤝</div>
+                <div class="winner-info">
+                    <strong>Empate: ${winner.names.join(" y ")}</strong>
+                    <span>Semana ${weekLabel(week)}</span>
+                </div>
+                <div class="winner-points">${winner.points} pts</div>`;
+        } else {
+            element.innerHTML = `
+                <div class="winner-medal">${index === 0 ? "👑" : "🏆"}</div>
+                <div class="winner-info">
+                    <strong>${winner.name} 💕</strong>
+                    <span>Novio de ${winner.girlfriend} · ${weekLabel(week)}</span>
+                </div>
+                <div class="winner-points">${winner.points} pts</div>`;
+        }
+        list.appendChild(element);
+    });
+}
+
+/* ============================================
+   RENDERIZAR TODO
+============================================ */
+
+function renderAll() {
+
+    renderChart();
+    renderChampion();
+    renderHistory();
+    renderWeeklyWinners();
+
+}
+
+
+/* ============================================
+   CORAZONES
+============================================ */
+
+function createHearts() {
+
+    const emojis =
+        ["💗","💕","💖","💘","💝","✨"];
+
+    for(let i=0;i<15;i++) {
+
+        const heart =
+            document.createElement("div");
+
+        heart.textContent =
+            emojis[
+                Math.floor(
+                    Math.random()*emojis.length
+                )
+            ];
+
+        heart.style.position = "fixed";
+        heart.style.left =
+            Math.random()*100 + "vw";
+
+        heart.style.top =
+            70 + Math.random()*20 + "vh";
+
+        heart.style.fontSize = "25px";
+        heart.style.zIndex = "99999";
+        heart.style.pointerEvents = "none";
+
+        heart.animate(
+            [
+                {
+                    transform:"translateY(0)",
+                    opacity:1
+                },
+                {
+                    transform:"translateY(-200px)",
+                    opacity:0
+                }
+            ],
+            {
+                duration:2500,
+                easing:"ease-out"
+            }
+        );
+
+        document.body.appendChild(heart);
+
+        setTimeout(
+            () => heart.remove(),
+            2500
+        );
+
+    }
+
+}
+
+
+/* ============================================
+   NOTIFICACIÓN
+============================================ */
+
+let notificationTimer;
+
+function showNotification(message) {
+
+    const notification =
+        document.getElementById("notification");
+
+    notification.textContent =
+        message;
+
+    notification.classList.add("show");
+
+    clearTimeout(notificationTimer);
+
+    notificationTimer =
+        setTimeout(
+            () =>
+                notification.classList.remove("show"),
+            2800
+        );
+
+}
+
+
+/* ============================================
+   REINICIAR
+============================================ */
+
+window.resetCompetition = async function() {
+
+    const answer =
+        confirm(
+            "¿Seguro que quieres reiniciar los puntos y el historial actual? Los ganadores de semanas anteriores se conservarán."
+        );
+
+    if(!answer) return;
+
+
+    const emptyParticipants = {
+
+        ian: {
+            name:"IAN",
+            girlfriend:"Sofía",
+            points:0
+        },
+
+        fabrizcio: {
+            name:"FABRIZCIO",
+            girlfriend:"Yakelin",
+            points:0
+        },
+
+        benjamin: {
+            name:"BENJAMIN",
+            girlfriend:"Yuri",
+            points:0
+        }
+
+    };
+
+
+    try {
+
+        await set(
+            ref(db,"battle/participants"),
+            emptyParticipants
+        );
+
+        await remove(
+            ref(db,"battle/history")
+        );
+
+        showNotification(
+            "🗑️ ¡Competencia reiniciada!"
+        );
+
+    }
+
+    catch(error) {
+
+        console.error(error);
+
+        showNotification(
+            "❌ No se pudo reiniciar."
+        );
+
+    }
+
+};
+
+
+/* ============================================
+   CONTADOR SEMANAL
+============================================ */
+
+function updateCountdown() {
+
+    const now = new Date();
+    const start = getWeekStart(now);
+    const end = getWeekEnd(now);
+    currentWeekKey = getWeekKey(now);
+
+    const difference = end - now;
+    const days = Math.max(0,Math.floor(difference/86400000));
+    const hours = Math.floor(difference/3600000)%24;
+    const minutes = Math.floor(difference/60000)%60;
+    const seconds = Math.floor(difference/1000)%60;
+
+    document.getElementById("countdown").textContent =
+        `${days}d ${hours}h ${minutes}m ${seconds}s`;
+
+    const progress = Math.min(
+        Math.max(((now-start)/(end-start))*100,0),100
+    );
+
+    document.getElementById("weekProgress").style.width = progress+"%";
+
+    document.getElementById("weekDates").textContent =
+        `Semana del ${start.toLocaleDateString("es-PE")} al ${end.toLocaleDateString("es-PE")}`;
+}
+
+setInterval(
+    updateCountdown,
+    1000
+);
+
+
+/* ============================================
+   INICIAR
+============================================ */
+
+loadFirebase();
+updateCountdown();
+renderAll();
+
+</script>
+
+</body>
+</html>
+```
